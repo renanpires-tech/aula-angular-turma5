@@ -1,0 +1,45 @@
+{
+    "vagas": [
+        {
+            "id": "yhu8",
+            "titulo": "Desenvolvedor Front-end Angular - Pleno",
+            "motivo": "Aumento de demanda por conta de novos projetos fechados",
+            "requisitos": [
+                "3 anos de experiência com Angular CLI",
+                "Conhecimento de Observables e Rxjs",
+                "Conhecimento em requisições de API Rest",
+                "Experiência em criação de documentações"
+            ],
+            "quantidade": 2,
+            "aprovacao": "Pendente",
+            "gestorId": "u651",
+            "dataSolicitacao": "2025-10-28T15:30:00.000Z"
+        }
+    ],
+    "gestor": [
+        {
+            "id": "u651",
+            "nome": "Anderson Dias",
+            "email": "anderson.dias@itlean.com.br",
+            "cargo": "Gerente de delivery",
+            "departamentoId": "k76i"
+        },
+        {
+            "id": "j81b",
+            "nome": "Samanta Padilha",
+            "email": "samanta.padilha@itlean.com.br",
+            "cargo": "Gerente de gente e gestão",
+            "departamentoId": "i90v"
+        }
+    ],
+    "departamento": [
+        {
+            "id": "i90v",
+            "departamento": "Gente"
+        },
+        {
+            "id": "k76i",
+            "departamento": "Operação"
+        }
+    ]
+}
