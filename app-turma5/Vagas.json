@@ -1,0 +1,183 @@
+{
+  "vagas": [
+    {
+      "id": "",
+      "titulo": "JavaScript",
+      "gestorId": "u651",
+      "departamentoId": "",
+      "quantidade": 2,
+      "motivo": "",
+      "requisitos": [],
+      "aprovacao": "Pendente",
+      "dataSolicitacao": "2025-11-11T18:18:00.485Z"
+    },
+    {
+      "id": "",
+      "titulo": "JavaScript",
+      "gestorId": "j81b",
+      "departamentoId": "k76i",
+      "quantidade": 4,
+      "motivo": "",
+      "requisitos": [],
+      "aprovacao": "Pendente",
+      "dataSolicitacao": "2025-11-11T18:25:43.020Z"
+    },
+    {
+      "id": "",
+      "titulo": "Titulo",
+      "gestorId": "u651",
+      "departamentoId": "",
+      "quantidade": 5,
+      "motivo": "",
+      "requisitos": [],
+      "aprovacao": "Pendente",
+      "dataSolicitacao": "2025-11-11T18:26:08.365Z"
+    },
+    {
+      "id": "",
+      "titulo": "JavaScript",
+      "gestorId": "u651",
+      "departamentoId": "k76i",
+      "quantidade": 4,
+      "motivo": "",
+      "requisitos": [],
+      "aprovacao": "Pendente",
+      "dataSolicitacao": "2025-11-11T18:26:54.232Z"
+    },
+    {
+      "id": "",
+      "titulo": "JavaScript",
+      "gestorId": "9ac6",
+      "departamentoId": "",
+      "quantidade": 4,
+      "motivo": "Falta de demanda",
+      "requisitos": [
+        "6"
+      ],
+      "aprovacao": "Aprovado",
+      "dataSolicitacao": "2025-11-11T19:01:44.516Z"
+    },
+    {
+      "id": "",
+      "titulo": "JavaScript",
+      "gestorId": "9ac6",
+      "departamentoId": "i90v",
+      "quantidade": 2,
+      "motivo": "baixa demanda",
+      "requisitos": [
+        "3"
+      ],
+      "aprovacao": "Aprovado",
+      "dataSolicitacao": "2025-11-11T18:18:00.485Z"
+    },
+    {
+      "id": "",
+      "titulo": "JavaScript",
+      "gestorId": "u651",
+      "departamentoId": "3d8e",
+      "quantidade": 2,
+      "motivo": "Falta de demanda para o desenvolvedor",
+      "requisitos": [
+        "2"
+      ],
+      "aprovacao": "Pendente",
+      "dataSolicitacao": "2025-11-11T18:18:00.485Z"
+    },
+    {
+      "id": "",
+      "titulo": "Desenvolvedor Angular",
+      "gestorId": "u651",
+      "departamentoId": "k76i",
+      "quantidade": 3,
+      "motivo": "Falta de profissionais",
+      "requisitos": [],
+      "aprovacao": "Pendente",
+      "dataSolicitacao": "2025-11-11T19:37:00.000Z"
+    },
+    {
+      "id": "",
+      "titulo": "Desenvolvedor Angular",
+      "gestorId": "u651",
+      "departamentoId": "k76i",
+      "quantidade": 3,
+      "motivo": "Falta de profissionais, com XP suficiente para a posição",
+      "requisitos": [],
+      "aprovacao": "Pendente",
+      "dataSolicitacao": "2025-11-11T19:37:00.000Z"
+    }
+  ],
+  "gestor": [
+    {
+      "id": "u651",
+      "nome": "Anderson Dias",
+      "email": "anderson.dias@itlean.com.br",
+      "cargo": "Gerente de delivery",
+      "departamentoId": "k76i"
+    },
+    {
+      "id": "j81b",
+      "nome": "Samanta Padilha",
+      "email": "samanta.padilha@itlean.com.br",
+      "cargo": "Gerente de gente e gestão",
+      "departamentoId": "i90v"
+    },
+    {
+      "id": "9ac6",
+      "nome": "Renan Eduardo",
+      "email": "renan.pires@itlean.com.br",
+      "cargo": "Gente",
+      "departamentoId": "i90v"
+    },
+    {
+      "id": "d4f9",
+      "nome": "Carlos Pereira",
+      "email": "Carlos.Pereira@itlean.com.br",
+      "cargo": "Gente",
+      "departamentoId": "26de"
+    },
+    {
+      "id": "c6fc",
+      "nome": "Ana Souza",
+      "email": "Ana.Souza@itlean.com.br",
+      "cargo": "RH",
+      "departamentoId": "i90v"
+    },
+    {
+      "id": "6fa7",
+      "nome": "Marco Fain",
+      "email": "marco.fain@itlean.com.br",
+      "cargo": "Gerente de Delivery",
+      "departamentoId": "k76i"
+    }
+  ],
+  "departamento": [
+    {
+      "id": "i90v",
+      "departamento": "Gente"
+    },
+    {
+      "id": "k76i",
+      "departamento": "Operação"
+    },
+    {
+      "id": "87dc",
+      "departamento": "Renan Eduardo"
+    },
+    {
+      "id": "ec0a",
+      "departamento": "Renan"
+    },
+    {
+      "id": "18ca",
+      "departamento": "marcos"
+    },
+    {
+      "id": "26de",
+      "departamento": "DHO"
+    },
+    {
+      "id": "3d8e",
+      "departamento": "Cidadania"
+    }
+  ]
+}

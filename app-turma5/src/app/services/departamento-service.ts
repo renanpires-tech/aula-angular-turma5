@@ -7,19 +7,24 @@ import { TipoDepartamento } from '../models/tipo-departamento';
   providedIn: 'root',
 })
 export class DepartamentoService {
+  
+  private apiDpto = inject(HttpClient)
+  private readonly url: string = 'http://localhost:3000/departamento/'
 
-  private http2 = inject(HttpClient);
-  private readonly urlBase2: string = 'http://localhost:3000/departamento';
-
-  getDepartamento(): Observable<TipoDepartamento[]> {
-    return this.http2.get<TipoDepartamento[]>(this.urlBase2);
+  getDepartamentos(): Observable<TipoDepartamento[]>{
+    return this.apiDpto.get<TipoDepartamento[]>(this.url)
   }
 
-  getDepartamentoPorId(id: string): Observable<TipoDepartamento> {
-    return this.http2.get<TipoDepartamento>(this.urlBase2 + id);
+  getDepartamentoPorId(id: string): Observable<TipoDepartamento>{
+    return this.apiDpto.get<TipoDepartamento>(this.url + id)
   }
 
-  updateDepartamento(nome: string, departamentoId: TipoDepartamento): Observable<TipoDepartamento> {
-    return this.http2.put<TipoDepartamento>(`${this.urlBase2}/${nome}`, departamentoId);
+  postCriarDepartamento(novoItem: TipoDepartamento): Observable<TipoDepartamento>{
+    return this.apiDpto.post<TipoDepartamento>(this.url, novoItem, {
+      headers: {
+        'Content-type': 'json-application'
+      }
+    })
   }
+
 }

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Gestores } from './gestores';
+import { HeaderNav } from './header-nav';
 
-describe('Gestores', () => {
-  let component: Gestores;
-  let fixture: ComponentFixture<Gestores>;
+describe('HeaderNav', () => {
+  let component: HeaderNav;
+  let fixture: ComponentFixture<HeaderNav>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Gestores]
+      imports: [HeaderNav]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Gestores);
+    fixture = TestBed.createComponent(HeaderNav);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,4 +1,4 @@
 export interface TipoDepartamento {
-    id: string;
-    departamentos: string;
+    id?: string;
+    departamento: string;
 }

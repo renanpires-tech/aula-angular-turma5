@@ -1,67 +1,33 @@
-<h1>
-  Lista-vagas
-</h1>
-
-<p>
-  Contador: {{ contador() }}
-  <button type="button" (click)="add()">
-    Adicionar
-  </button>
-</p>
-
 <div>
-  @if(nomes.length == 0){
-  <ul>
-    @for(nome of nomes; track $index){
-    <li>{{ nome }} - {{ $index }}</li>
-    }
-  </ul>
-  } @else {
-  <h4>Sem itens</h4>
-  }
-</div>
+  <h3>Lista de Vagas</h3>
 
+  <div style="margin-bottom: 1rem;">
+    <button type="button" routerLink="/form-vaga">➕ Nova Vaga</button>
+  </div>
 
-<div>
-  <button type="button" (click)="carregarPedidos()">
-    Chamada
-  </button>
-</div>
-
-<div>
-  {{ pedidoVaga() }}
-</div>
-
-<h3>
-  Tabela Vagas
-</h3>
-<div>
   <table>
     <thead>
       <tr>
-        <th>Vaga</th>
+        <th>Título</th>
         <th>Gestor</th>
-        <th>Data de solicitação</th>
-        <th>Quantidade</th>
-        <th>Motivo</th>
-        <th>Requisitos</th>
-        <th>Status</th>
+        <th>Departamento</th>
+        <th>Data</th>
+        <th>Ações</th>
       </tr>
     </thead>
     <tbody>
-      @for(pedido of pedidoVaga(); track $index){
+      @for(vaga of pedidoVaga(); track $index) {
       <tr>
-        <td>{{ pedido.titulo }}</td>
-        <td>{{ pedido.gestorId }}</td>
-        <td>{{ buscaGestor(pedido.gestorId) }}</td>
-        <td>{{ converteData(pedido.dataSolicitacao) }}</td>
-        <td>{{ pedido.quantidade }}</td>
-        <td>{{ pedido.motivo }}</td>
-        <td>{{ pedido.requisitos }}</td>
-        <td>{{ pedido.aprovacao }}</td>
+        <td>{{ vaga.titulo }}</td>
+        <td>{{ buscaGestor(vaga.gestorId) }}</td>
+        <td>{{ buscaDepartamento(vaga.departamentoId).departamento }}</td>
+        <td>{{ converteData(vaga.dataSolicitacao) }}</td>
+        <td>
+          <button type="button" (click)="editarVaga(vaga)" style="margin-right: 0.5rem;">✏️ Editar</button>
+          <button type="button" (click)="deletarVaga(vaga)">🗑️ Excluir</button>
+        </td>
       </tr>
       }
     </tbody>
   </table>
 </div>
-

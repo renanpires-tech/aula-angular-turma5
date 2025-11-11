@@ -1,5 +1,5 @@
-import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TipoGestor } from '../models/tipo-gestor';
 
@@ -7,24 +7,23 @@ import { TipoGestor } from '../models/tipo-gestor';
   providedIn: 'root',
 })
 export class GestorService {
+  
+  private api = inject(HttpClient)
+  private readonly urlBase: string = 'http://localhost:3000/gestor/'
 
-  private http = inject(HttpClient);
-  private readonly urlBase: string = 'http://localhost:3000/gestor';
-
-  getGestorService(): Observable<TipoGestor[]>{
-    return this.http.get<TipoGestor[]>(this.urlBase);
+  getGestores(): Observable<TipoGestor[]>{
+    return this.api.get<TipoGestor[]>(this.urlBase);
   }
 
   getGestorPorId(id: string): Observable<TipoGestor>{
-    return this.http.get<TipoGestor>(this.urlBase + id);
+    return this.api.get<TipoGestor>(this.urlBase + id);
   }
 
-  getGestorPorNome(nome: string): Observable<TipoGestor[]> {
-    const url = `${this.urlBase}?nome=${encodeURIComponent(nome)}`;
-    return this.http.get<TipoGestor[]>(url);
+  postCriaGestor(obj: TipoGestor): Observable<TipoGestor> {
+  return this.api.post<TipoGestor>(this.urlBase, obj);
   }
 
-  updateGestor(nome: string, gestorId: TipoGestor):Observable<TipoGestor>{
-    return this.http.put<TipoGestor>(`${this.urlBase}/${nome}`, gestorId);
+  deletaGestor(id: string): Observable<void>{
+    return this.api.delete<void>(`http://localhost:3000/gestores/${id}`);
   }
 }

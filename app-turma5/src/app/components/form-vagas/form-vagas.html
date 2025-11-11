@@ -1,1 +1,160 @@
-<p>form-vagas works!</p>
+<div *ngIf="!mostrarFormulario">
+  <div class="container mt-4">
+    <h3>Formulário de Vagas</h3>
+    
+    <button type="button" class="btn btn-primary mb-3" (click)="abrirFormulario()">
+      ➕ Nova Vaga
+    </button>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Gestor</th>
+          <th>Departamento</th>
+          <th>Quantidade</th>
+          <th>Data</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(vaga of pedidoVaga(); track $index) {
+        <tr>
+          <td>{{ vaga.titulo }}</td>
+          <td>{{ buscaGestor(vaga.gestorId) }}</td>
+          <td>{{ buscaDepartamento(vaga.departamentoId).departamento }}</td>
+          <td>{{ vaga.quantidade }}</td>
+          <td>{{ converteData(vaga.dataSolicitacao) }}</td>
+          <td>
+            <button type="button" class="btn btn-sm btn-primary me-2" (click)="editarVaga(vaga)">
+              ✏️ Editar
+            </button>
+            <button type="button" class="btn btn-sm btn-danger" (click)="deletarVaga(vaga)">
+              🗑️ Excluir
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="mostrarFormulario">
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="mb-0">{{isEditMode ? 'Editar Vaga' : 'Criar Nova Vaga'}}</h3>
+          </div>
+          <div class="card-body">
+            <form (ngSubmit)="criarVagas()">
+              <div class="mb-3">
+                <label for="titulo" class="form-label">Título da Vaga *</label>
+                <input type="text" class="form-control" id="titulo" [(ngModel)]="nomeTitulo" name="titulo"
+                  required placeholder="Ex: Desenvolvedor Front-end Angular - Pleno">
+              </div>
+
+              <div class="mb-3">
+                <label for="motivo" class="form-label">Motivo da Vaga *</label>
+                <textarea class="form-control" id="motivo" [(ngModel)]="nomeMotivo" name="motivo" rows="3"
+                  required placeholder="Descreva o motivo da abertura da vaga"></textarea>
+              </div>
+
+              <div class="mb-3">
+                <label for="requisito" class="form-label">Requisitos *</label>
+                <div class="input-group mb-2">
+                  <input type="text" class="form-control" id="requisito" [(ngModel)]="nomeRequisito"
+                    name="requisito" placeholder="Digite um requisito e clique em Adicionar">
+                  <button type="button" class="btn btn-outline-primary" (click)="adicionarRequisito()">
+                    Adicionar
+                  </button>
+                </div>
+                @if(requisitos.length > 0){
+                <div class="mt-2">
+                  <small class="text-muted">Requisitos adicionados:</small>
+                  <ul class="list-group mt-2">
+                    @for(requisito of requisitos; track $index){
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      {{requisito}}
+                      <button type="button" class="btn btn-sm btn-outline-danger"
+                        (click)="removerRequisito($index)">
+                        Remover
+                      </button>
+                    </li>
+                    }
+                  </ul>
+                </div>
+                }
+              </div>
+
+              <div class="mb-3">
+                <label for="quantidade" class="form-label">Quantidade de Vagas *</label>
+                <select class="form-select" id="quantidade" [(ngModel)]="nomeQuantidade" name="quantidade"
+                  required>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="aprovacao" class="form-label">Status de Aprovação *</label>
+                <select class="form-select" id="aprovacao" [(ngModel)]="nomeAprovacao" name="aprovacao"
+                  required>
+                  <option value="Pendente">Pendente</option>
+                  <option value="Aprovado">Aprovado</option>
+                  <option value="Reprovado">Reprovado</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="gestor" class="form-label">Gestor Responsável *</label>
+                <select class="form-select" id="gestor" [(ngModel)]="gestorId" name="gestor" required>
+                  <option value="">Selecione um gestor</option>
+                  @for(gestor of gestores(); track gestor.id){
+                  <option [value]="gestor.id">{{gestor.nome}} - {{gestor.cargo}}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="departamento" class="form-label">Departamento *</label>
+                <select class="form-select" id="departamento" [(ngModel)]="departamentoId" name="departamento" required>
+                  <option value="">Selecione um departamento</option>
+                  @for(d of departamento(); track d.id){
+                  <option [value]="d.id">{{d.departamento}}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="data" class="form-label">Data de Solicitação *</label>
+                <input type="datetime-local" class="form-control" id="data" [(ngModel)]="nomeData" name="data"
+                  required>
+              </div>
+
+              <div class="mb-3">
+                <label for="id" class="form-label">ID {{isEditMode ? '(não pode ser alterado)' : '(opcional - será gerado automaticamente se vazio)'}}</label>
+                <input type="text" class="form-control" id="id" [(ngModel)]="nomeID" name="id"
+                  [readonly]="isEditMode"
+                  [style.background-color]="isEditMode ? '#e9ecef' : ''"
+                  placeholder="{{isEditMode ? 'ID da vaga sendo editada' : 'Deixe vazio para gerar automaticamente'}}">
+              </div>
+
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-secondary" (click)="isEditMode ? router.navigate(['/']) : fecharFormulario()">
+                  {{isEditMode ? 'Cancelar' : 'Cancelar'}}
+                </button>
+                <button type="submit" class="btn btn-primary">{{isEditMode ? 'Atualizar Vaga' : 'Criar Vaga'}}</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

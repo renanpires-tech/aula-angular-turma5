@@ -1,4 +1,6 @@
 import { Component, OnInit, signal, WritableSignal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
 
 import { VagaService } from '../../services/vaga-service';
 
@@ -14,39 +16,32 @@ import { TipoDepartamento } from '../../models/tipo-departamento';
 
 @Component({
   selector: 'app-lista-vagas',
-  imports: [],
+  imports: [CommonModule, RouterModule],
   templateUrl: './lista-vagas.html',
   styleUrl: './lista-vagas.scss',
 })
 export class ListaVagas implements OnInit {
 
-  contador: WritableSignal<number> = signal(0);
-
-  nomes: string[] = [];
-
   pedidoVaga: WritableSignal<PedidoVaga[]> = signal([]);
 
   gestores: WritableSignal<TipoGestor[]> = signal([]);
 
-  departamentos: WritableSignal<TipoDepartamento[]> = signal([]);
+  departamento: WritableSignal<TipoDepartamento[]> = signal([]);
 
   constructor(
     private VagaService: VagaService,
     private GestorService: GestorService,
-    private DepartamentoService: DepartamentoService
+    private DepartamentoService: DepartamentoService,
+    private router: Router
   ) { };
 
   ngOnInit(): void {
-    this.carregarPedidos()
+    this.carregarVagas()
     this.carregarGestores()
-    this.carregarDepartamentos()
+    this.carregaDepartamentos()
   }
 
-  add(): void {
-    this.contador.update(valorAntigo => valorAntigo + 1);
-  }
-
-  carregarPedidos(): void {
+  carregarVagas(): void {
     this.VagaService.getPedidosVagas().subscribe({
       next: data => {
         console.log(data);
@@ -57,22 +52,59 @@ export class ListaVagas implements OnInit {
     });
   }
 
+  deletarVaga(item: PedidoVaga): void {
+    const confirmar = confirm(`Deseja excluir essa vaga "${item.titulo}"?`);
+    if (!confirmar) return;
+    
+    if (!item.id || item.id === '') {
+      alert('Erro: Vaga sem ID. Não é possível excluir.');
+      console.error('Vaga sem ID:', item);
+      return;
+    }
+    
+    this.VagaService.deletaVaga(item.id).subscribe({
+      next: () => {
+        alert(`Vaga "${item.titulo}" excluída com sucesso!`);
+        this.carregarVagas();
+      },
+      error: error => {
+        console.error('Erro ao excluir vaga:', error);
+        alert('Não foi possível excluir a vaga.');
+      }
+    });
+  }
+
+  editarVaga(item: PedidoVaga): void {
+    // Se tiver ID, usa o ID. Caso contrário, passa os dados completos via state
+    if (item.id && item.id !== '') {
+      this.router.navigate(['/form-vaga'], { queryParams: { id: item.id } });
+    } else {
+      // Passa os dados completos da vaga via state para edição
+      this.router.navigate(['/form-vaga'], { 
+        state: { vagaParaEditar: item },
+        queryParams: { edit: 'true' }
+      });
+    }
+  }
+
   carregarGestores(): void {
-    this.GestorService.getGestorService().subscribe({
-      next: respostaGestores => {
-        this.gestores.set(respostaGestores);
-      }, error: error => {
-        console.log(error);
+    this.GestorService.getGestores().subscribe({
+      next: respGest => {
+        this.gestores.set(respGest)
+      },
+      error: error => {
+        console.log(error)
       }
     })
   }
 
-  carregarDepartamentos(): void{
-    this.DepartamentoService.getDepartamento().subscribe({
-      next: respostaDepartamentos => {
-        this.departamentos.set(respostaDepartamentos);
-      }, error: error => {
-        console.log(error);
+  carregaDepartamentos(): void {
+    this.DepartamentoService.getDepartamentos().subscribe({
+      next: respDpto2 => {
+        this.departamento.set(respDpto2)
+      },
+      error: error => {
+        console.log(error)
       }
     })
   }
@@ -91,14 +123,14 @@ export class ListaVagas implements OnInit {
     }
   }
 
-  buscaDepartamento(id: string): any{
-    let departamentoEncontrado = this.departamentos().find(d => d.id == id);
+  buscaDepartamento(id: string): TipoDepartamento | { departamento: string } {
+    let departamentoEncontrado = this.departamento().find(d => d.id == id);
     if (departamentoEncontrado) {
       return departamentoEncontrado;
     } else {
-      return { nome: 'N/A', id: '', descricao: ''};
+      return { departamento: 'N/A' };
     }
   }
-}
+};
 
 

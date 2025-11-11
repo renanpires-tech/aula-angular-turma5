@@ -1,0 +1,55 @@
+<h3>
+    Tabela de Gestores
+</h3>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Cargo</th>
+                <th>Departamento</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(gestor of gestores(); track $index){
+            <tr>
+                <td>{{ gestor.nome }}</td>
+                <td>{{ gestor.email }}</td>
+                <td>{{ gestor.cargo }}</td>
+                <td>{{ buscaDpto(gestor.departamentoId) }}</td>
+                <td>
+                    <button type="button" (click)="deletarGestor(gestor)">🗑️ Excluir Gestor</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <h3>Adicionar Gestor</h3>
+    <div>
+        <label for="campoNome">Nome</label>
+        <input type="text" id="campoNome" [(ngModel)]="gestorNovo.nome" />
+    </div>
+    <div>
+        <label for="campoEmail">Email</label>
+        <input type="text" id="campoEmail" [(ngModel)]="gestorNovo.email" />
+    </div>
+    <div>
+        <label for="campoCargo">Cargo</label>
+        <input type="text" id="campoCargo" [(ngModel)]="gestorNovo.cargo" />
+    </div>
+    <div>
+        <label for="campoDepartamento">Departamento</label>
+        <select id="campoDepartamento" [(ngModel)]="gestorNovo.departamentoId">
+            <option value="">Selecione um departamento</option>
+            <option *ngFor="let d of dptos()" [value]="d.id">
+                {{ d.departamento }}
+            </option>
+        </select>
+    </div>
+    <button type="button" (click)="criarGestor()">Criar Gestor</button>
+</div>
